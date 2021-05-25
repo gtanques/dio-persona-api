@@ -31,10 +31,21 @@ public class PersonService {
 
     @Transactional(readOnly = true)
     public PersonDTO findById(Long id) {
-        Person person = personRepository.findById(id)
-                .orElseThrow(() -> new PersonNotFoundException(id));
+        Person person = verifyIfExists(id);
 
         PersonDTO dto = new PersonDTO(person);
         return dto;
+    }
+
+    @Transactional
+    public void deleteById(Long id) {
+        verifyIfExists(id);
+        personRepository.deleteById(id);
+    }
+
+    private Person verifyIfExists(Long id) {
+        Person person = personRepository.findById(id)
+                .orElseThrow(() -> new PersonNotFoundException(id));
+        return person;
     }
 }
