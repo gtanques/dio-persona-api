@@ -3,6 +3,7 @@ package one.digitalinnovation.personapi;
 import one.digitalinnovation.personapi.dto.MessageResponseDTO;
 import one.digitalinnovation.personapi.dto.PersonDTO;
 import one.digitalinnovation.personapi.entities.Person;
+import one.digitalinnovation.personapi.entities.Phone;
 import one.digitalinnovation.personapi.repositories.PersonRepository;
 import one.digitalinnovation.personapi.services.exceptions.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PersonService {
-//    private final PersonMapper personMapper = PersonMapper.INSTANCE;
     private final PersonRepository personRepository;
 
     @Autowired
@@ -23,18 +23,14 @@ public class PersonService {
     public MessageResponseDTO createPerson(PersonDTO dto) {
         Person person = new Person(null, dto.getFirstName(), dto.getLastName(), dto.getCpf(), dto.getBirthDate(), dto.getPhones());
         person = personRepository.save(person);
-        return MessageResponseDTO
-                .builder()
-                .message("Created person with ID: " + person.getId())
-                .build();
+        return createMensageResponse("Created person with ID: ", person.getId());
     }
 
     @Transactional(readOnly = true)
     public PersonDTO findById(Long id) {
         Person person = verifyIfExists(id);
 
-        PersonDTO dto = new PersonDTO(person);
-        return dto;
+        return new PersonDTO(person);
     }
 
     @Transactional
@@ -43,9 +39,32 @@ public class PersonService {
         personRepository.deleteById(id);
     }
 
+    public MessageResponseDTO updateById(Long id, PersonDTO dto) {
+        Person person = verifyIfExists(id);
+        updateData(person, dto);
+        person = personRepository.save(person);
+        return createMensageResponse("Updated person with ID:", person.getId());
+    }
+
     private Person verifyIfExists(Long id) {
-        Person person = personRepository.findById(id)
+        return personRepository.findById(id)
                 .orElseThrow(() -> new PersonNotFoundException(id));
-        return person;
+    }
+
+    private MessageResponseDTO createMensageResponse(String message, Long id) {
+        return MessageResponseDTO
+                .builder()
+                .message(message + id)
+                .build();
+    }
+
+    private void updateData(Person person, PersonDTO dto){
+        person.setFirstName(dto.getFirstName());
+        person.setLastName(dto.getLastName());
+        person.setCpf(dto.getCpf());
+        person.setBirthDate(dto.getBirthDate());
+        for (Phone phone : dto.getPhones()){
+            person.getPhones().add(phone);
+        }
     }
 }
