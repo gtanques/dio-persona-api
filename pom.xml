@@ -67,11 +67,6 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>7.0.1.Final</version>
 		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>${org.mapstruct.version}</version>
-		</dependency>
     </dependencies>
 
 	<build>
@@ -84,11 +79,6 @@
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-						</exclude>
-						<exclude>
-							<groupId>org.mapstruct</groupId>
-							<artifactId>mapstruct-processor</artifactId>
-							<version>${org.mapstruct.version}</version>
 						</exclude>
 					</excludes>
 				</configuration>

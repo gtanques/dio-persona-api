@@ -1,5 +1,6 @@
 package one.digitalinnovation.personapi;
 
+import lombok.AllArgsConstructor;
 import one.digitalinnovation.personapi.dto.MessageResponseDTO;
 import one.digitalinnovation.personapi.dto.PersonDTO;
 import one.digitalinnovation.personapi.entities.Person;
@@ -11,13 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonService {
     private final PersonRepository personRepository;
-
-    @Autowired
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
 
     @Transactional
     public MessageResponseDTO createPerson(PersonDTO dto) {
