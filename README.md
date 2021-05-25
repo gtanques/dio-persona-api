@@ -2,7 +2,7 @@
 <img src="https://img.shields.io/badge/JAVA-Spring%20Boot-green"/><img src="https://img.shields.io/badge/Lombok-red"/><img src="https://img.shields.io/badge/H2-blue"/>
 
 ### - Testes 
-#### Insert 
+#### POST 
     http://localhost:8080/api/v1/people/
 
     {
@@ -17,10 +17,10 @@
             }
 	    ]
     }
-#### FindById
+#### GET
     http://localhost:8080/api/v1/people/{id} 
 
-#### Update
+#### PUT
     http://localhost:8080/api/v1/people/{id}
     {
         "firstName": "Luke",
@@ -35,7 +35,7 @@
         ]
     }
 
-#### Delete
+#### DELETE
     http://localhost:8080/api/v1/people/{id}
 
 
