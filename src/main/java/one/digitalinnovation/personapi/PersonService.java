@@ -3,8 +3,8 @@ package one.digitalinnovation.personapi;
 import one.digitalinnovation.personapi.dto.MessageResponseDTO;
 import one.digitalinnovation.personapi.dto.PersonDTO;
 import one.digitalinnovation.personapi.entities.Person;
-import one.digitalinnovation.personapi.mapper.PersonMapper;
 import one.digitalinnovation.personapi.repositories.PersonRepository;
+import one.digitalinnovation.personapi.services.exceptions.PersonNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,5 +27,14 @@ public class PersonService {
                 .builder()
                 .message("Created person with ID: " + person.getId())
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public PersonDTO findById(Long id) {
+        Person person = personRepository.findById(id)
+                .orElseThrow(() -> new PersonNotFoundException(id));
+
+        PersonDTO dto = new PersonDTO(person);
+        return dto;
     }
 }
