@@ -1,4 +1,4 @@
-package one.digitalinnovation.personapi;
+package one.digitalinnovation.personapi.services;
 
 import lombok.AllArgsConstructor;
 import one.digitalinnovation.personapi.dto.MessageResponseDTO;

@@ -1,7 +1,7 @@
 package one.digitalinnovation.personapi.controllers;
 
 import lombok.AllArgsConstructor;
-import one.digitalinnovation.personapi.PersonService;
+import one.digitalinnovation.personapi.services.PersonService;
 import one.digitalinnovation.personapi.dto.MessageResponseDTO;
 import one.digitalinnovation.personapi.dto.PersonDTO;
 import org.springframework.beans.factory.annotation.Autowired;
